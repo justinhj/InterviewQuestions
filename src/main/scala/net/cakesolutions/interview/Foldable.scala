@@ -32,12 +32,12 @@ trait Foldable[F[_]] {
   def foldr[A, B](f: (A, B) => B)(z: B)(fa: F[A]): B
 
   /**
-    * Foldmap is sometimes useful when we know the structure of F has a monoid
-    * instance. Note that one could define `foldr` in terms of `foldMap` and
-    * vice versa. This is because Foldable structures are implicitly monoidal,
-    * as `foldr` naturally takes advantage of this monoidal structure by using
-    * the terminal case of `F` as the fixed point to mark recursive termination
-    * in a monoidal way.
+    * Foldmap is sometimes useful when we know the structure of the values of F
+    * have a monoid instance. Note that one could define `foldr` in terms of
+    * `foldMap` and vice versa. This is because Foldable structures are implicitly
+    * monoidal - `foldr` naturally takes advantage of F's monoidal structure by
+    * using the terminal case of `F` as the fixed point to mark recursive termination,
+    * acting as an identity for the fold.
     *
     * @param f - a way of transforming elements of type A into their monoidal
     *          counterpart

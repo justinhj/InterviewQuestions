@@ -29,7 +29,6 @@ package object instances {
     override def ap[A, B](ff: List[A => B])(fa: List[A]): List[B] = listApplicative.ap(ff)(fa)
     override def pure[A](a: A): List[A] = listApply.pure(a)
     override def fmap[A, B](f: A => B)(fa: List[A]): List[B] = listFunctor.fmap(f)(fa)
-
     override def join[A, B](mma: List[List[A]]): List[A] =
       mma match {
         case xx::xxs =>
@@ -40,10 +39,8 @@ package object instances {
           }
         case Nil => Nil
       }
-
     override def bind[A, B](ma: List[A])(k: A => List[B]): List[B] =
       join(fmap(k)(ma))
-
   }
 
   // TODO

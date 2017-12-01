@@ -50,10 +50,13 @@ trait Applicative[F[_]] extends Functor[F] with Apply[F] {
     *
     * ap = liftA2 id liftA2 f x y = f `fmap` x `ap` y
     *
-    * @param f
-    * @param fa
-    * @param fb
-    * @return
+    * @param f the binary operation acting on A's and B's
+    * @param fa - applicative container of A's
+    * @param fb - applicative container of B's
+    * @return - the application of the binary operation
+    *         `f` combining elements of `fa` and `fb`
+    *         using the action of `f` to produce an applicative
+    *         context of C's
     */
   def liftA2[A, B, C](f: A => B => C)(fa: F[A])(fb: F[B]): F[C] =
     ap(fmap(f)(fa))(fb)

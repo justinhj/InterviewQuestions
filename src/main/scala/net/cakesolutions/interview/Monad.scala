@@ -43,5 +43,6 @@ trait Monad[M[_]] extends Applicative[M] {
     *
     * In Scala, we call this "flatten"
     */
-  def join[A, B](mma: M[M[A]]): M[A]
+  def join[A, B](mma: M[M[A]]): M[A] =
+    bind(mma)(identity)
 }
