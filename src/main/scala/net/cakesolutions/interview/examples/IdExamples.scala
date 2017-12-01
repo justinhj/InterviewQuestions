@@ -10,7 +10,7 @@ import net.cakesolutions.interview.{
   Traversable
 }
 
-object Id {
+object IdExamples {
 
   implicit val idFunctor: Functor[Id] = new Functor[Id] {
     override def fmap[A, B](f: A => B)(fa: Id[A]): Id[B] = f(fa)
