@@ -2,7 +2,7 @@
 
 The object of this offline quiz is to test your problem solving abilities within a purely functional programming context. You've been given a small subset of the standard typeclass hierarchy, with the standard methods defined in each, from Functor up through Monad and Traversable, as well as examples of each instance given in the `examples` package.
 
-Take your time studying the collection of typeclasses given in the `interview` package, and, when you're ready, attempt to implement `Traversable` and `Foldable` instances for Scala's standard `List` data type (found in the `instances` package). You've been given instances of each of the other typeclasses already to build upon, and it's up to you to choose which instances/functionality you'll bring in in order to accomplish the task.
+Take your time studying the collection of typeclasses given in the `interview` package, and, when you're ready, attempt to implement `Traversable` and `Foldable` instances for Scala's standard `List` data type (found in the `instances` package). It's up to you which instances/functionality you'll bring in in order to accomplish the task.
 
 Implementing `Traversable` and `Foldable` comes down to implementing 3 methods, for which you've been given the signatures:
 
