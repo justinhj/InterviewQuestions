@@ -61,5 +61,4 @@ trait Applicative[F[_]] extends Functor[F] with Apply[F] {
   def liftA2[A, B, C](f: A => B => C)(fa: F[A])(fb: F[B]): F[C] =
     ap(fmap(f)(fa))(fb)
 
-
 }

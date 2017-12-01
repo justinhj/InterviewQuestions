@@ -45,7 +45,8 @@ trait Traversable[T[_]] extends Functor[T] with Foldable[T] {
     * @param A - direct access to the applicative structure of `F`
     * @return an applicative context consisting of the evaluated traversable
     */
-  def traverse[A, B, F[_]](k: A => F[B])(ta: T[A])(implicit A: Applicative[F]): F[T[B]]
+  def traverse[A, B, F[_]](k: A => F[B])(ta: T[A])(
+      implicit A: Applicative[F]): F[T[B]]
 
   /**
     * Evaluate each action in some applicative context in the traversable structure from

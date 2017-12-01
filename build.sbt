@@ -1,15 +1,15 @@
 import Dependencies._
 
-lazy val root = (project in file(".")).
-  settings(
-    inThisBuild(List(
+lazy val root = (project in file(".")).settings(
+  inThisBuild(
+    List(
       organization := "net.cakesolutions",
       scalaVersion := "2.12.4",
-      version      := "0.1.0-SNAPSHOT"
+      version := "0.1.0-SNAPSHOT"
     )),
-    licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
-    name := "interview"
-  )
+  licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
+  name := "interview"
+)
 
 lazy val commonSettings = List(
   scalacOptions ++= List(
@@ -35,9 +35,9 @@ lazy val commonSettings = List(
   ),
   fork in run := true,
   resolvers ++= List(Resolver.sonatypeRepo("snapshots"),
-    Resolver.sonatypeRepo("releases")),
+                     Resolver.sonatypeRepo("releases")),
   initialCommands in console :=
     "import " +
       "net.cakesolutions.interview._, " +
       "net.cakesolutions.interview.instances._, "
-  )
+)

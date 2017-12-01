@@ -1,7 +1,12 @@
 package net.cakesolutions.interview.examples
 
-import net.cakesolutions.interview.{Applicative, Apply, Foldable, Functor, Traversable}
-
+import net.cakesolutions.interview.{
+  Applicative,
+  Apply,
+  Foldable,
+  Functor,
+  Traversable
+}
 
 sealed trait Tree[A]
 final case class Branch[A](a: A, left: Tree[A], right: Tree[A]) extends Tree[A]
@@ -13,7 +18,7 @@ object Tree {
     override def fmap[A, B](f: A => B)(fa: Tree[A]): Tree[B] =
       fa match {
         case Branch(a, l, r) => Branch(f(a), fmap(f)(l), fmap(f)(r))
-        case Tip() => Tip()
+        case Tip()           => Tip()
       }
   }
 
@@ -32,10 +37,12 @@ object Tree {
 
   implicit val treeTraversable: Traversable[Tree] = new Traversable[Tree] {
 
-    override def traverse[A, B, F[_]](k: A => F[B])(ta: Tree[A])(implicit A: Applicative[F]): F[Tree[B]] =
+    override def traverse[A, B, F[_]](k: A => F[B])(ta: Tree[A])(
+        implicit A: Applicative[F]): F[Tree[B]] =
       sequenceA[B, F](fmap(k)(ta))
 
-    override def sequenceA[A, F[_]](tfa: Tree[F[A]])(implicit A: Applicative[F]): F[Tree[A]] =
+    override def sequenceA[A, F[_]](tfa: Tree[F[A]])(
+        implicit A: Applicative[F]): F[Tree[A]] =
       traverse[F[A], A, F](identity)(tfa)
 
     override def foldr[A, B](f: (A, B) => B)(z: B)(fa: Tree[A]): B =
