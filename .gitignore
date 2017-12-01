@@ -1,0 +1,61 @@
+*.class
+*.log
+
+# sbt specific
+.cache
+.history
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# previous BAM stuff
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+release.properties
+*.swp
+*.swo
+*.o
+*.la
+*.lo
+.deps
+.libs
+src/native/Makefile
+src/native/config.*
+src/native/autom4te.cache
+src/native/libtool
+src/native/stamp-h1
+
+# Ignore IDEA
+.idea/
+*.iml
+**/*.iml
+*.class
+*.log
+
+# sbt specific
+.cache
+.history
+dist/*
+target/
+**/target
+*.class
+
+# Mac OS X
+.DS_Store
+
+# Eclipse
+*.classpath
+*.project
+*.settings
+*bin
+*.cache-main
+*.cache-tests
+
+# Ensime
+*.ensime
+
