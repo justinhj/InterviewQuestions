@@ -32,6 +32,11 @@ object MonoidExamples {
     override def mzero: List[A] = Nil
   }
 
+  implicit val stringMonoid: Monoid[String] = new Monoid[String] {
+    override def mappend(a1: String, a2: String): String = a1 + a2
+    override def mzero: String = ""
+  }
+
   // TODO: Very extra credit. How would you go about creating a
   // TODO: monoid instance for binary trees?
   implicit def treeMonoid[A]: Monoid[Tree[A]] = ???
