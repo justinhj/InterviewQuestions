@@ -17,18 +17,12 @@ package net.cakesolutions.interview
   *   `composition`
   *     (f . g) == fmap f . fmap g
   *
-  * @tparam F
   */
 trait Functor[F[_]] {
 
   /**
     * Transform values of type A into values of type B within
-    * some context. Functors must ob
-    * @param f
-    * @param fa
-    * @tparam A
-    * @tparam B
-    * @return
+    * some context.
     */
   def fmap[A, B](f: A => B)(fa: F[A]): F[B]
 

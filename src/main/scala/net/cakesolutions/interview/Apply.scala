@@ -5,7 +5,7 @@ package net.cakesolutions.interview
   * due to its importance. All it does is allow you to define how
   * values of some type are inserted into a context.
   *
-  * @tparam F - The context to insert values into
+  * @tparam F The context to insert values into
   */
 trait Apply[F[_]] {
 

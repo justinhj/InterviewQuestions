@@ -1,8 +1,7 @@
 package net.cakesolutions.interview
 
 /**
-  * A data structure that can be folded
-  * @tparam F
+  * A data structure that can be folded from left to right
   */
 trait Foldable[F[_]] {
 

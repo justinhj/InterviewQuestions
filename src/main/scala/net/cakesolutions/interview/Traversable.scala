@@ -14,23 +14,25 @@ package net.cakesolutions.interview
   *
   *   `naturality:`
   *     {{{t . traverse f = traverse (t . f) for every applicative transformation t}}}
-  *   identity
+  *
+  *   `identity`
   *     {{{traverse Identity = Identity}}}
+  *
   *   `composition`
   *     {{{traverse (Compose . fmap g . f) = Compose . fmap (traverse g) . traverse f}}}
   *
   * A definition of sequenceA must satisfy the following laws:
   *
   *   `naturality`
-  *     {{{t . sequenceA = sequenceA . fmap t}}} for every applicative transformation t
+  *     {{{t . sequenceA = sequenceA . fmap t for every applicative transformation t}}}
+  *
+  *
   *   `identity`
   *     {{{sequenceA . fmap Identity = Identity}}}
   *
   *   `composition`
   *     {{{sequenceA . fmap Compose = Compose . fmap sequenceA . sequenceA}}}
   *
-  *
-  * @tparam T - Container type representing the container satisfying the above laws
   */
 trait Traversable[T[_]] extends Functor[T] with Foldable[T] {
 

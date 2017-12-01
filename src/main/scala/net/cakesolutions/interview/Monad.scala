@@ -19,7 +19,6 @@ package net.cakesolutions.interview
   *   `Equivalence lambda expressions`
   *     {{{m >>= (\x -> k x >>= h) = (m >>= k) >>= h}}}
   *
-  * @tparam M - some applicative context that supports flattening and mapping
   */
 trait Monad[M[_]] extends Applicative[M] {
 

@@ -12,3 +12,6 @@ Implementing `Traversable` and `Foldable` comes down to implementing 3 methods, 
 
 
 You will be graded on code cleanliness, as well as completeness. It's not required, but tests would be nice as well, for your own sake. Feel free to use any resources at your disposal, aside from having other people do it for you, and try your best!
+
+
+*Note: Please do not use the standard API functions, such as List.foldRight in your implementations*
