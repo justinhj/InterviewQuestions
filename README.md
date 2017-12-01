@@ -11,7 +11,7 @@ Implementing `Traversable` and `Foldable` comes down to implementing 3 methods, 
 - `sequenceA` - which uses an applicative functor to turn `F[G[A]]` into `G[F[A]]` when `G` is an applicative
 
 
-You will be graded on code cleanliness, as well as completeness. It's not required, but tests would be nice as well, for your own sake. Feel free to use any resources at your disposal, aside from having other people do it for you, and try your best!
+You will be graded on code cleanliness, as well as completeness. Once you have a working implementation, we would like to see test code that proves your solution is sane and valid in the `test` directory. You've been provided `scalatest` for the task. Feel free to use any resources at your disposal, aside from having other people do it for you, and try your best!
 
 
 *Note: Please do not use the standard API functions, such as List.foldRight in your implementations*
