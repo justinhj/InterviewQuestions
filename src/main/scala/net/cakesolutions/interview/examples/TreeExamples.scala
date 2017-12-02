@@ -36,7 +36,6 @@ object TreeExamples {
   }
 
   implicit val treeTraversable: Traversable[Tree] = new Traversable[Tree] {
-
     override def traverse[A, B, F[_]](ta: Tree[A])(k: A => F[B])(
         implicit A: Applicative[F]): F[Tree[B]] =
       sequenceA[B, F](fmap(ta)(k))
