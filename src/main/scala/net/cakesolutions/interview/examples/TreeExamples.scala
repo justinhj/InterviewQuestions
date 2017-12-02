@@ -12,7 +12,7 @@ sealed trait Tree[A]
 final case class Branch[A](a: A, left: Tree[A], right: Tree[A]) extends Tree[A]
 final case class Tip[A]() extends Tree[A]
 
-object Tree {
+object TreeExamples {
 
   implicit val treeFunctor: Functor[Tree] = new Functor[Tree] {
     override def fmap[A, B](f: A => B)(fa: Tree[A]): Tree[B] =
@@ -56,6 +56,6 @@ object Tree {
   // Why wouldn't this work/be useful for us? this is very extra credit.
   // Futher, why doesn't this version of a binary tree have a monad or applicative instance?
   // It has to do with infinite trees and non-empty tips
-  implicit val treeApplicative: Applicative[Tree] = ???
+  // implicit val treeApplicative: Applicative[Tree] = ???
 
 }

@@ -6,7 +6,7 @@ sealed trait Maybe[A]
 final case class Just[A](a: A) extends Maybe[A]
 final case class Nothing[A]() extends Maybe[A]
 
-object Maybe {
+object MaybeExamples {
 
   implicit val maybeFunctor: Functor[Maybe] = new Functor[Maybe] {
     override def fmap[A, B](f: A => B)(fa: Maybe[A]): Maybe[B] =
