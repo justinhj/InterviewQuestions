@@ -18,7 +18,13 @@ package net.cakesolutions.interview
   *
   * @tparam F
   */
-trait Applicative[F[_]] extends Functor[F] with Apply[F] {
+trait Applicative[F[_]] extends Functor[F] {
+
+  /**
+    * Insert an `A` of some type into a context `F`
+    * @return a value within some context
+    */
+  def pure[A](a: A): F[A]
 
   /**
     * Sometimes called `<*>`, ap defines sequential application.

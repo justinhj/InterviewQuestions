@@ -12,7 +12,12 @@ lazy val root = (project in file(".")).settings(
   name := "interview",
   libraryDependencies ++= List(
     scalaTest % Test
-  )
+  ),
+  initialCommands in console :=
+    "import " +
+      "net.cakesolutions.interview._, " +
+      "net.cakesolutions.interview.instances._, " +
+      "net.cakesolutions.interview.examples._"
 )
 
 lazy val commonSettings = List(
@@ -63,9 +68,5 @@ lazy val commonSettings = List(
   ),
   fork in run := true,
   resolvers ++= List(Resolver.sonatypeRepo("snapshots"),
-                     Resolver.sonatypeRepo("releases")),
-  initialCommands in console :=
-    "import " +
-      "net.cakesolutions.interview._, " +
-      "net.cakesolutions.interview.instances._, "
+                     Resolver.sonatypeRepo("releases"))
 )

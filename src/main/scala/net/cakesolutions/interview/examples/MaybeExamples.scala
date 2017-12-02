@@ -16,8 +16,12 @@ object MaybeExamples {
       }
   }
 
-  implicit val maybeApply: Apply[Maybe] = new Apply[Maybe] {
-    override def pure[A](a: A): Maybe[A] = Just(a)
+  implicit val maybeFoldable: Foldable[Maybe] = new Foldable[Maybe] {
+    override def foldr[A, B](fa: Maybe[A])(z: => B)(f: A => B => B): B =
+      fa match {
+        case Just(a)   => f(a)(z)
+        case Nothing() => z
+      }
   }
 
   implicit val maybeApplicative: Applicative[Maybe] = new Applicative[Maybe] {
@@ -26,9 +30,22 @@ object MaybeExamples {
         case Just(f) => fmap(fa)(f)
         case _       => Nothing()
       }
-    override def pure[A](a: A): Maybe[A] = pure(a)
+    override def pure[A](a: A): Maybe[A] = Just(a)
     override def fmap[A, B](fa: Maybe[A])(f: A => B): Maybe[B] =
-      fmap(fa)(f)
+      maybeFunctor.fmap(fa)(f)
+  }
+
+  implicit val maybeTraversable: Traversable[Maybe] = new Traversable[Maybe] {
+    override def traverse[A, B, F[_]: Applicative](ta: Maybe[A])(
+        k: A => F[B]): F[Maybe[B]] =
+      sequenceA[B, F](fmap(ta)(k))
+    override def sequenceA[A, F[_]: Applicative](
+        tfa: Maybe[F[A]]): F[Maybe[A]] =
+      traverse(tfa)(identity)
+    override def foldr[A, B](fa: Maybe[A])(z: => B)(f: A => B => B): B =
+      maybeFoldable.foldr(fa)(z)(f)
+    override def fmap[A, B](fa: Maybe[A])(f: A => B): Maybe[B] =
+      maybeFunctor.fmap(fa)(f)
   }
 
   implicit val maybeMonad: Monad[Maybe] = new Monad[Maybe] {
@@ -42,30 +59,10 @@ object MaybeExamples {
     override def join[A, B](mma: Maybe[Maybe[A]]): Maybe[A] =
       bind(mma)(identity)
     override def ap[A, B](ff: Maybe[A => B])(fa: Maybe[A]): Maybe[B] =
-      ap(ff)(fa)
-    override def pure[A](a: A): Maybe[A] = maybeApply.pure(a)
+      maybeApplicative.ap(ff)(fa)
+    override def pure[A](a: A): Maybe[A] = maybeApplicative.pure(a)
     override def fmap[A, B](fa: Maybe[A])(f: A => B): Maybe[B] =
-      fmap(fa)(f)
+      maybeFunctor.fmap(fa)(f)
   }
 
-  implicit val maybeFoldable: Foldable[Maybe] = new Foldable[Maybe] {
-    override def foldr[A, B](fa: Maybe[A])(z: B)(f: (A, B) => B): B =
-      fa match {
-        case Just(a)   => f(a, z)
-        case Nothing() => z
-      }
-  }
-
-  implicit val maybeTraversable: Traversable[Maybe] = new Traversable[Maybe] {
-    override def traverse[A, B, F[_]: Applicative](ta: Maybe[A])(
-        k: A => F[B]): F[Maybe[B]] =
-      sequenceA[B, F](fmap(ta)(k))
-    override def sequenceA[A, F[_]: Applicative](
-        tfa: Maybe[F[A]]): F[Maybe[A]] =
-      traverse(tfa)(identity)
-    override def foldr[A, B](fa: Maybe[A])(z: B)(f: (A, B) => B): B =
-      foldr(fa)(z)(f)
-    override def fmap[A, B](fa: Maybe[A])(f: A => B): Maybe[B] =
-      fmap(fa)(f)
-  }
 }

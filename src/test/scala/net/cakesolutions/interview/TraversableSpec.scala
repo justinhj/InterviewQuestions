@@ -4,8 +4,6 @@ import org.scalatest.{Matchers, WordSpec}
 
 class TraversableSpec extends WordSpec with Matchers {
 
-  import instances._, examples._
-
   /**
     * This should help you get started testing. The syntax T[_] : [[Traversable]]
     * is what we call a "context bound". It's syntactic sugar for [T[_]](implicit ev: [[Traversable]][T]),
