@@ -42,7 +42,7 @@ trait Applicative[F[_]] extends Functor[F] with Apply[F] {
     * @param f - the function to be lifted
     * @return the lifted function
     */
-  def liftA[A, B](f: A => B): F[A] => F[B] = fmap(f) _
+  def liftA[A, B](f: A => B): F[A] => F[B] = fmap[A, B](_)(f)
 
   /**
     * Applicative can be defined up to isomorphism via `ap` or `liftA2`. If Applicative
@@ -58,7 +58,7 @@ trait Applicative[F[_]] extends Functor[F] with Apply[F] {
     *         using the action of `f` to produce an applicative
     *         context of C's
     */
-  def liftA2[A, B, C](f: A => B => C)(fa: F[A])(fb: F[B]): F[C] =
-    ap(fmap(f)(fa))(fb)
+  def liftA2[A, B, C](fa: F[A])(fb: F[B])(f: A => B => C): F[C] =
+    ap(fmap(fa)(f))(fb)
 
 }

@@ -8,7 +8,7 @@ object MonoidExamples {
     * The simplest example of monoidal structure
     */
   implicit val additiveMonoid: Monoid[Int] = new Monoid[Int] {
-    override def mappend(a1: Int, a2: Int): Int = a1 + a2
+    override def mappend(a1: Int)(a2: Int): Int = a1 + a2
     override def mzero: Int = 0
   }
 
@@ -18,7 +18,7 @@ object MonoidExamples {
     */
   implicit val pairMultiplicativeMonoid: Monoid[(Int, Int)] =
     new Monoid[(Int, Int)] {
-      override def mappend(a1: (Int, Int), a2: (Int, Int)): (Int, Int) =
+      override def mappend(a1: (Int, Int))(a2: (Int, Int)): (Int, Int) =
         (a1._1 * a2._1, a1._2 * a2._2)
       override def mzero: (Int, Int) = (1, 1)
     }
@@ -28,12 +28,12 @@ object MonoidExamples {
     * in a principled language/theory.
     */
   implicit def listMonoid[A]: Monoid[List[A]] = new Monoid[List[A]] {
-    override def mappend(a1: List[A], a2: List[A]): List[A] = a1 ::: a2
+    override def mappend(a1: List[A])(a2: List[A]): List[A] = a1 ::: a2
     override def mzero: List[A] = Nil
   }
 
   implicit val stringMonoid: Monoid[String] = new Monoid[String] {
-    override def mappend(a1: String, a2: String): String = a1 + a2
+    override def mappend(a1: String)(a2: String): String = a1 + a2
     override def mzero: String = ""
   }
 

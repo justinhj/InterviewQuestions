@@ -1,4 +1,5 @@
 import Dependencies._
+import sbt.Keys.libraryDependencies
 
 lazy val root = (project in file(".")).settings(
   inThisBuild(
@@ -8,7 +9,10 @@ lazy val root = (project in file(".")).settings(
       version := "0.1.0-SNAPSHOT"
     )),
   licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
-  name := "interview"
+  name := "interview",
+  libraryDependencies ++= List(
+    scalaTest % Test
+  )
 )
 
 lazy val commonSettings = List(

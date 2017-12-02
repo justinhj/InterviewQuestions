@@ -15,9 +15,9 @@ final case class Tip[A]() extends Tree[A]
 object TreeExamples {
 
   implicit val treeFunctor: Functor[Tree] = new Functor[Tree] {
-    override def fmap[A, B](f: A => B)(fa: Tree[A]): Tree[B] =
+    override def fmap[A, B](fa: Tree[A])(f: A => B): Tree[B] =
       fa match {
-        case Branch(a, l, r) => Branch(f(a), fmap(f)(l), fmap(f)(r))
+        case Branch(a, l, r) => Branch(f(a), fmap(l)(f), fmap(r)(f))
         case Tip()           => Tip()
       }
   }
@@ -27,29 +27,29 @@ object TreeExamples {
   }
 
   implicit val treeFoldable: Foldable[Tree] = new Foldable[Tree] {
-    override def foldr[A, B](f: (A, B) => B)(z: B)(fa: Tree[A]): B =
+    override def foldr[A, B](fa: Tree[A])(z: B)(f: (A, B) => B): B =
       fa match {
         case Branch(a, l, r) =>
-          foldr(f)(f(a, foldr(f)(z)(l)))(r)
+          foldr(r)(f(a, foldr(l)(z)(f)))(f)
         case Tip() => z
       }
   }
 
   implicit val treeTraversable: Traversable[Tree] = new Traversable[Tree] {
 
-    override def traverse[A, B, F[_]](k: A => F[B])(ta: Tree[A])(
+    override def traverse[A, B, F[_]](ta: Tree[A])(k: A => F[B])(
         implicit A: Applicative[F]): F[Tree[B]] =
-      sequenceA[B, F](fmap(k)(ta))
+      sequenceA[B, F](fmap(ta)(k))
 
     override def sequenceA[A, F[_]](tfa: Tree[F[A]])(
         implicit A: Applicative[F]): F[Tree[A]] =
-      traverse[F[A], A, F](identity)(tfa)
+      traverse(tfa)(identity)
 
-    override def foldr[A, B](f: (A, B) => B)(z: B)(fa: Tree[A]): B =
-      treeFoldable.foldr(f)(z)(fa)
+    override def foldr[A, B](fa: Tree[A])(z: B)(f: (A, B) => B): B =
+      foldr(fa)(z)(f)
 
-    override def fmap[A, B](f: A => B)(fa: Tree[A]): Tree[B] =
-      treeFunctor.fmap(f)(fa)
+    override def fmap[A, B](fa: Tree[A])(f: A => B): Tree[B] =
+      fmap(fa)(f)
   }
 
   // TODO:

@@ -24,6 +24,6 @@ trait Functor[F[_]] {
     * Transform values of type A into values of type B within
     * some context.
     */
-  def fmap[A, B](f: A => B)(fa: F[A]): F[B]
+  def fmap[A, B](fa: F[A])(f: A => B): F[B]
 
 }

@@ -28,7 +28,7 @@ trait Foldable[F[_]] {
     *
     *
     */
-  def foldr[A, B](f: (A, B) => B)(z: B)(fa: F[A]): B
+  def foldr[A, B](fa: F[A])(z: B)(f: (A, B) => B): B
 
   /**
     * Foldmap is sometimes useful when we know the structure of the values of F
@@ -46,6 +46,6 @@ trait Foldable[F[_]] {
     *         values of type M
     * @return
     */
-  def foldMap[A, M](f: A => M)(fa: F[A])(implicit m: Monoid[M]): M =
-    foldr((a: A, mm: M) => m.mappend(f(a), mm))(m.mzero)(fa)
+  def foldMap[A, M](fa: F[A])(f: A => M)(implicit m: Monoid[M]): M =
+    foldr(fa)(m.mzero)((a, mm) => m.mappend(f(a))(mm))
 }

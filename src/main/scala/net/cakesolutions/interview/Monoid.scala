@@ -28,7 +28,7 @@ trait Monoid[A] {
   /**
     * A closed, associative binary operation.
     */
-  def mappend(a1: A, a2: A): A
+  def mappend(a1: A)(a2: A): A
 
   /**
     * The fixed point identity of the binary operation
