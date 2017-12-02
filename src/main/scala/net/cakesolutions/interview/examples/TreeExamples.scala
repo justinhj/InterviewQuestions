@@ -36,12 +36,11 @@ object TreeExamples {
   }
 
   implicit val treeTraversable: Traversable[Tree] = new Traversable[Tree] {
-    override def traverse[A, B, F[_]](ta: Tree[A])(k: A => F[B])(
-        implicit A: Applicative[F]): F[Tree[B]] =
+    override def traverse[A, B, F[_]: Applicative](ta: Tree[A])(
+        k: A => F[B]): F[Tree[B]] =
       sequenceA[B, F](fmap(ta)(k))
 
-    override def sequenceA[A, F[_]](tfa: Tree[F[A]])(
-        implicit A: Applicative[F]): F[Tree[A]] =
+    override def sequenceA[A, F[_]: Applicative](tfa: Tree[F[A]]): F[Tree[A]] =
       traverse(tfa)(identity)
 
     override def foldr[A, B](fa: Tree[A])(z: B)(f: (A, B) => B): B =
@@ -55,6 +54,7 @@ object TreeExamples {
   // Why wouldn't this work/be useful for us? this is very extra credit.
   // Futher, why doesn't this version of a binary tree have a monad or applicative instance?
   // It has to do with infinite trees and non-empty tips
+  // How might you change Tree's definition to be roughly equivalent, but admit an Applicative?
   // implicit val treeApplicative: Applicative[Tree] = ???
 
 }

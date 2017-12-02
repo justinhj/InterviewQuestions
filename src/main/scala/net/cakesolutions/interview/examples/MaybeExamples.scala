@@ -57,11 +57,11 @@ object MaybeExamples {
   }
 
   implicit val maybeTraversable: Traversable[Maybe] = new Traversable[Maybe] {
-    override def traverse[A, B, F[_]](ta: Maybe[A])(k: A => F[B])(
-        implicit A: Applicative[F]): F[Maybe[B]] =
+    override def traverse[A, B, F[_]: Applicative](ta: Maybe[A])(
+        k: A => F[B]): F[Maybe[B]] =
       sequenceA[B, F](fmap(ta)(k))
-    override def sequenceA[A, F[_]](tfa: Maybe[F[A]])(
-        implicit A: Applicative[F]): F[Maybe[A]] =
+    override def sequenceA[A, F[_]: Applicative](
+        tfa: Maybe[F[A]]): F[Maybe[A]] =
       traverse(tfa)(identity)
     override def foldr[A, B](fa: Maybe[A])(z: B)(f: (A, B) => B): B =
       foldr(fa)(z)(f)

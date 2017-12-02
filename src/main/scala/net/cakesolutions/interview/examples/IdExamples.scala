@@ -37,11 +37,10 @@ object IdExamples {
   }
 
   implicit val idTraversable: Traversable[Id] = new Traversable[Id] {
-    override def traverse[A, B, F[_]](ta: Id[A])(k: A => F[B])(
-        implicit A: Applicative[F]): F[Id[B]] = k(ta)
-    override def sequenceA[A, F[_]](tfa: Id[F[A]])(
-        implicit A: Applicative[F]): F[Id[A]] = traverse(tfa)(identity)
-
+    override def traverse[A, B, F[_]: Applicative](ta: Id[A])(
+        k: A => F[B]): F[Id[B]] = k(ta)
+    override def sequenceA[A, F[_]: Applicative](tfa: Id[F[A]]): F[Id[A]] =
+      traverse(tfa)(identity)
     override def foldr[A, B](fa: Id[A])(z: B)(f: (A, B) => B): B =
       foldr(fa)(z)(f)
     override def fmap[A, B](fa: Id[A])(f: A => B): Id[B] = fmap(fa)(f)
