@@ -14,7 +14,7 @@ package net.cakesolutions.interview
   * in order for M to be called a Monoid, it must satisfy the following laws:
   *
   *   `Two-sided identity`:
-  *     {{{∃ e ϵ M, ∀m ϵ M . m |+| e = e |+| m = m}}}
+  *     {{{∃! e ϵ M, ∀m ϵ M . m |+| e = e |+| m = m}}}
   *
   *   `Associativity`
   *     {{{∀m, n, o ϵ M . (m |+| n) |+| o = m |+| (n |+| o)}}}
