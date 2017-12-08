@@ -46,4 +46,16 @@ class TraversableSpec extends WordSpec with Matchers {
     }
   }
 
+  "Traversing a List using the Maybe Applicative, squaring each value" should {
+    "produce an optional list of squared values" in {
+      import MaybeExamples._, instances._
+
+      val simpleList = List(1, 2, 3)
+
+      traverse[List, Maybe, Int, Int](simpleList)(a => Just(a * a)) shouldEqual Just(
+        listFunctor.fmap(simpleList)(a => a * a)
+      )
+    }
+  }
+
 }
