@@ -37,7 +37,7 @@ trait Applicative[F[_]] extends Functor[F] {
     *         each entry is the result of the application of
     *         some action applied to the collection `fa`
     */
-  def ap[A, B](ff: F[A => B])(fa: F[A]): F[B]
+  def ap[A, B](fa: F[A])(ff: F[A => B]): F[B]
 
   /**
     * Lift a function of values to a function of contexts via partial application -
@@ -65,6 +65,21 @@ trait Applicative[F[_]] extends Functor[F] {
     *         context of C's
     */
   def liftA2[A, B, C](fa: F[A])(fb: F[B])(f: A => B => C): F[C] =
-    ap(fmap(fa)(f))(fb)
+    ap(fb)(fmap(fa)(f))
+
+  /**
+    * `liftA3` is exactly like `liftA2`, except with an extra parameter. You can keep going,
+    * but for my (and your) sake, I'll stop here. You can define liftAN recursively. Notice
+    * that `liftA` and `liftA2` are your base cases, with `liftA2` = fb <*> (fmap fa f). Notice that
+    * `liftA2` = fb <*> liftA. Proceed from there. You have for {fa_n}_{n \in I}, that
+    * `liftAN` = fa_n <*> liftA(N-1) where I is some countable, partially ordered set.
+    *
+    * We define this for convenience in the Tree example for traversable. You, however, will
+    * not need this. You might, however, need `liftA2` *hint hint hint*. It's up to you.
+    *
+    */
+  def liftA3[A, B, C, D](fa: F[A])(fb: F[B])(fc: F[C])(
+      f: A => B => C => D): F[D] =
+    ap(fc)(liftA2(fa)(fb)(f))
 
 }

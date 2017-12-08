@@ -1,5 +1,6 @@
 package net.cakesolutions.interview
 
+import net.cakesolutions.interview.examples._
 import org.scalatest.{Matchers, WordSpec}
 
 class TraversableSpec extends WordSpec with Matchers {
@@ -23,4 +24,26 @@ class TraversableSpec extends WordSpec with Matchers {
   def traverse[T[_]: Traversable, F[_]: Applicative, A, B](ta: T[A])(
       k: A => F[B]): F[T[B]] =
     implicitly[Traversable[T]].traverse(ta)(k)
+
+  "Traversing a Tree using the Maybe applicative, squaring each value" should {
+    "produce an optional tree node values squared" in {
+      import TreeExamples._, MaybeExamples._
+
+      val simpleTree: Tree[Int] =
+        Branch(
+          1,
+          Tip(),
+          Branch(
+            2,
+            Branch(3, Tip(), Tip()),
+            Tip()
+          )
+        )
+
+      traverse[Tree, Maybe, Int, Int](simpleTree)(a => Just(a * a)) shouldEqual Just(
+        treeFunctor.fmap(simpleTree)(a => a * a))
+
+    }
+  }
+
 }

@@ -26,12 +26,14 @@ object TreeExamples {
   }
 
   implicit val treeTraversable: Traversable[Tree] = new Traversable[Tree] {
-    override def traverse[A, B, F[_]: Applicative](ta: Tree[A])(
-        k: A => F[B]): F[Tree[B]] =
-      sequenceA[B, F](fmap(ta)(k))
-
-    override def sequenceA[A, F[_]: Applicative](tfa: Tree[F[A]]): F[Tree[A]] =
-      traverse(tfa)(identity)
+    override def traverse[A, B, F[_]](ta: Tree[A])(k: A => F[B])(
+        implicit A: Applicative[F]): F[Tree[B]] =
+      ta match {
+        case Tip() => A.pure(Tip())
+        case Branch(a, l, r) =>
+          A.liftA3(k(a))(traverse(l)(k))(traverse(r)(k))(aa =>
+            ll => rr => Branch(aa, ll, rr))
+      }
 
     override def foldr[A, B](fa: Tree[A])(z: => B)(f: A => B => B): B =
       treeFoldable.foldr(fa)(z)(f)

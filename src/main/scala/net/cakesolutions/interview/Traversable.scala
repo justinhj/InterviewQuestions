@@ -55,6 +55,7 @@ trait Traversable[T[_]] extends Functor[T] with Foldable[T] {
     * @param tfa - the traversable context for some applicative
     * @return a traversable of the collected results in an applicative context
     */
-  def sequenceA[A, F[_]: Applicative](tfa: T[F[A]]): F[T[A]]
+  def sequenceA[A, F[_]: Applicative](tfa: T[F[A]]): F[T[A]] =
+    traverse(tfa)(identity)
 
 }
