@@ -42,11 +42,4 @@ object TreeExamples {
       treeFunctor.fmap(fa)(f)
   }
 
-  // TODO:
-  // Why wouldn't this work/be useful for us? this is very extra credit.
-  // Futher, why doesn't this version of a binary tree have a monad or applicative instance?
-  // It has to do with infinite trees and non-empty tips
-  // How might you change Tree's definition to be roughly equivalent, but admit an Applicative?
-  // implicit val treeApplicative: Applicative[Tree] = ???
-
 }
