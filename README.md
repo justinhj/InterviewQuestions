@@ -10,6 +10,7 @@ Implementing `Functor`, `Traversable`, and `Foldable` comes down to implementing
 - `foldr` - this is the standard `foldRight` that we see in Scala every day.
 - `traverse` - a very common method which applies an action `A => G[B]` to some `F[A]` when `G` is an applicative
 
+You have tests that will compile when you complete an implementation, and return true when you have a correct implementation.
 
 You will be graded on code cleanliness, as well as completeness. Once you have a working implementation, we would like to see test code that proves your solution is sane and valid in the `test` directory. You've been provided `scalatest` for the task. Feel free to use any resources at your disposal, aside from having other people do it for you, and try your best!
 
