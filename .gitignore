@@ -1,3 +1,4 @@
+# Misc
 *.class
 *.log
 
@@ -12,38 +13,10 @@ src_managed/
 project/boot/
 project/plugins/project/
 
-# previous BAM stuff
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.next
-release.properties
-*.swp
-*.swo
-*.o
-*.la
-*.lo
-.deps
-.libs
-src/native/Makefile
-src/native/config.*
-src/native/autom4te.cache
-src/native/libtool
-src/native/stamp-h1
-
 # Ignore IDEA
 .idea/
 *.iml
 **/*.iml
-*.class
-*.log
-
-# sbt specific
-.cache
-.history
-dist/*
-target/
-**/target
-*.class
 
 # Mac OS X
 .DS_Store
@@ -59,3 +32,5 @@ target/
 # Ensime
 *.ensime
 
+# GitIgnore
+/.gitignore
