@@ -69,8 +69,8 @@ trait Applicative[F[_]] extends Functor[F] {
 
   /**
     * `liftA3` is exactly like `liftA2`, except with an extra parameter. You can keep going,
-    * but for my (and your) sake, I'll stop here. You can define liftAN recursively. Notice
-    * that `liftA` and `liftA2` are your base cases, with `liftA2` = fb <*> (fmap fa f). Notice that
+    * but for my (and your) sake, I'll stop here. You can define liftAN inductively. Notice
+    * that `liftA` and `liftA2` are your base cases, with `liftA2` = fb <*> (fmap fa f), and that
     * `liftA2` = fb <*> liftA. Proceed from there. You have for {fa_n}_{n \in I}, that
     * `liftAN` = fa_n <*> liftA(N-1) where I is some countable, partially ordered set.
     *

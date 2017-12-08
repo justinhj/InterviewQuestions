@@ -6,12 +6,13 @@ Take your time studying the collection of typeclasses given in the `interview` p
 
 Implementing `Traversable` and `Foldable` comes down to implementing 3 methods, for which you've been given the signatures:
 
+- `fmap` - the standard "map" function that defines the functor
 - `foldr` - this is the standard `foldRight` that we see in Scala every day.
 - `traverse` - a very common method which applies an action `A => G[B]` to some `F[A]` when `G` is an applicative
-- `sequenceA` - which uses an applicative functor to turn `F[G[A]]` into `G[F[A]]` when `G` is an applicative
 
 
 You will be graded on code cleanliness, as well as completeness. Once you have a working implementation, we would like to see test code that proves your solution is sane and valid in the `test` directory. You've been provided `scalatest` for the task. Feel free to use any resources at your disposal, aside from having other people do it for you, and try your best!
 
 
 *Note: Please do not use the standard API functions, such as List.foldRight in your implementations*
+**Double Note: If you prefer the Scaladoc, feel free to do `sbt doc` at the root of the project to generate the scaladocs. Everything has been liberally commented to make sure you have a total explanation for how things are meant to operate, and how to think about them.
