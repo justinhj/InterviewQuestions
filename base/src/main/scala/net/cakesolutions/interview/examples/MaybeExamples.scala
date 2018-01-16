@@ -39,7 +39,7 @@ object MaybeExamples {
     override def traverse[A, B, F[_]](ta: Maybe[A])(k: A => F[B])(
         implicit A: Applicative[F]): F[Maybe[B]] =
       ta match {
-        case Just(a)   => A.fmap(k(a))(Just(_))
+        case Just(a)   => A.fmap(k(a))(Just.apply)
         case Nothing() => A.pure(Nothing())
       }
     override def foldr[A, B](fa: Maybe[A])(z: => B)(f: A => B => B): B =

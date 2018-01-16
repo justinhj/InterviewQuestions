@@ -41,7 +41,8 @@ class TraversableSpec extends WordSpec with Matchers {
         )
 
       traverse[Tree, Maybe, Int, Int](simpleTree)(a => Just(a * a)) shouldEqual Just(
-        treeFunctor.fmap(simpleTree)(a => a * a))
+        treeFunctor.fmap(simpleTree)(a => a * a)
+      )
 
     }
   }
